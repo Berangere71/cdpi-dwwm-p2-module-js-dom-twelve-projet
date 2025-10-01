@@ -15,7 +15,7 @@ section{
     justify-content: center;
 }
 body{
-    font-size: 1.4rem;
+    font-size: 3rem;
     font-family: arial;
     color:white;
 }
@@ -55,8 +55,10 @@ iframe{
 /******************* Icone like ****************/
 #icone{
     transition: color 0.5s;
+    
 }
 .happy{
-    color:gold;
+
+    color:rgb(245, 209, 4);
 }
 /***********************************************/
