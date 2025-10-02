@@ -7,12 +7,10 @@
  * RegexExp.prototype.test()
  */
 
-
-
 /**
- * 1 .Je recupère
+ * 1. Je récupère
  *      - le formulaire
- *      - le champ prenom
+ *      - le champ prénom
  *      - le champ nom
  *      - le champ email
  *      - le champ message
@@ -23,12 +21,53 @@ const nom = document.getElementById("nom");
 const email = document.getElementById("email");
 const message = document.getElementById("message");
 
-// 2. Lorsque le formulaire est soumit (clique du bouton submit ou touche ENTER)
-form.addEventListener("submit",function(event){
-    // 3. J'annule le comportement par défaut du formulaire  : qui consiste à envoyer une requete http GET à l'adresse de l'attribut action du formualire et donc recharger la page
+// 2. Lorsque le formulaire est soumis (clic du bouton submit ou touche ENTER)
+form.addEventListener("submit", function(event) {
+    // 3. J'annule le comportement par défaut du formulaire : qui consiste à envoyer une requête HTTP GET à l'adresse de l'attribut action du formulaire et donc recharger la page
     event.preventDefault();
-    // ..
+
+    // Récupérer les valeurs des champs de formulaire et retirer les espaces en début et en fin
+    const prenomValue = prenom.value.trim();
+    const nomValue = nom.value.trim();
+    const emailValue = email.value.trim();
+    const messageValue = message.value.trim();
+
+    // Vérification de la longueur du prénom
+    if (prenomValue.length < 2) {
+        document.querySelector("#prenom").nextElementSibling.classList.remove("invisible");
+    } else {
+        hideError(prenom); // Cache l'erreur si le prénom est valide
+    }
+
+    // Vérification de la longueur du nom
+    if (nomValue.length < 2 || nomValue.length > 20) {
+        document.querySelector("#nom").nextElementSibling.classList.remove("invisible");
+    } else {
+        hideError(nom); // Cache l'erreur si le nom est valide
+    }
+
+    // Validation de l'email avec une expression régulière
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex pour vérifier le format de l'email
+    if (!emailRegex.test(emailValue)) {
+        document.querySelector("#email").nextElementSibling.classList.remove("invisible");
+    } else {
+        hideError(email); // Cache l'erreur si l'email est valide
+    }
+
+    // Vous pouvez également vérifier le message si nécessaire
+    if (messageValue.length < 10) {
+        document.querySelector("#message").nextElementSibling.classList.remove("invisible");
+    } else {
+        hideError(message); // Cache l'erreur si le message est valide
+    }
+
+
 });
+
+// Fonction pour cacher les messages d'erreur
+function hideError(element) {
+    element.nextElementSibling.classList.add("invisible");
+}
 
 /**
  * HELPERS FUNCTIONS
